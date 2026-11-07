@@ -18,6 +18,7 @@ var (
 		"change-me",
 		"change_me",
 		"password",
+		"secret",
 		"secret123",
 		"admin",
 		"placeholder",
@@ -31,7 +32,13 @@ var (
 		"replace_with_actual",
 		"dummy_key",
 		"dummy-key",
+		"dummy",
+		"example",
+		"sample",
+		"test",
+		"default",
 		"todo",
+		"xxx",
 		"xxxxxx",
 	}
 
@@ -90,10 +97,11 @@ func IsPlaceholder(key, val string) (bool, string) {
 		}
 	}
 
-	// For keys named explicitly with SECRET/KEY/PASSWORD/TOKEN:
+	// For keys named explicitly with SECRET/KEY/PASSWORD/TOKEN/AUTH:
 	upperKey := strings.ToUpper(key)
 	if strings.Contains(upperKey, "SECRET") || strings.Contains(upperKey, "PASSWORD") ||
-		strings.Contains(upperKey, "TOKEN") || strings.Contains(upperKey, "API_KEY") {
+		strings.Contains(upperKey, "TOKEN") || strings.Contains(upperKey, "API_KEY") ||
+		strings.Contains(upperKey, "AUTH") || strings.Contains(upperKey, "KEY") {
 		// If length is very short (< 8) or trivial repeated chars
 		if len(lowerVal) < 6 && (lowerVal == "test" || lowerVal == "pass" || lowerVal == "123456" || lowerVal == "root") {
 			return true, fmt.Sprintf("trivial weak credential %q in sensitive key", lowerVal)
